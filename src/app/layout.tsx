@@ -17,6 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel='shortcut icon' href='images/favicon.ico'></link>
+      <title>Gestão de Empresas</title>
       <body className={inter.className}>{children}</body>
       <Navbar />
     </html>
