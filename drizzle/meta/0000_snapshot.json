@@ -1,0 +1,172 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "empresas": {
+      "name": "empresas",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "razao_social": {
+          "autoincrement": false,
+          "name": "razao_social",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cnpj": {
+          "autoincrement": false,
+          "name": "cnpj",
+          "type": "varchar(18)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cep": {
+          "autoincrement": false,
+          "name": "cep",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cidade": {
+          "autoincrement": false,
+          "name": "cidade",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "estado": {
+          "autoincrement": false,
+          "name": "estado",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bairro": {
+          "autoincrement": false,
+          "name": "bairro",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "complemento": {
+          "autoincrement": false,
+          "name": "complemento",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "empresas_id": {
+          "name": "empresas_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "licencas": {
+      "name": "licencas",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "empresa_id": {
+          "autoincrement": false,
+          "name": "empresa_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numero": {
+          "autoincrement": false,
+          "name": "numero",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "orgao_ambiental": {
+          "autoincrement": false,
+          "name": "orgao_ambiental",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "emissao": {
+          "autoincrement": false,
+          "name": "emissao",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "validade": {
+          "autoincrement": false,
+          "name": "validade",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "licencas_id": {
+          "name": "licencas_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "indexes": {
+        "empresa_id": {
+          "name": "empresa_id",
+          "columns": [
+            "empresa_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "licencas_ibfk_1": {
+          "name": "licencas_ibfk_1",
+          "tableFrom": "licencas",
+          "tableTo": "empresas",
+          "columnsFrom": [
+            "empresa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}
