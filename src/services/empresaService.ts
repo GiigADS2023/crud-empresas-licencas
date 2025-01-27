@@ -1,6 +1,7 @@
 import { db } from "../db";
 import { empresas } from "../db/schema";
 import { eq } from 'drizzle-orm';
+import { getAllLicencasByEmpresa } from "../services/licencaService";
 
 export const createEmpresa = async (data: {
     razaoSocial: string;
@@ -33,7 +34,16 @@ export const updateEmpresa = async (id: number, data: Partial<{
     return result;
 };
 
+
 export const deleteEmpresa = async (id: number) => {
+    const licencas = await getAllLicencasByEmpresa(id);
+
+    console.log("Licenças vinculadas à empresa:", licencas); 
+
+    if (licencas.length > 0) {
+        throw new Error("A empresa não pode ser excluída enquanto tiver licença(s) vinculada(s).");
+    }
+
     const result = await db.delete(empresas).where(eq(empresas.id, id));
     return result;
-}
+};

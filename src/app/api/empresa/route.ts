@@ -3,8 +3,8 @@ import { createEmpresa, getAllEmpresas, updateEmpresa, deleteEmpresa } from "../
 
 export async function POST(request: Request) {
     try {
-        const data = await request.json();
-        const result = await createEmpresa(data);
+        const data = await request.json();  
+        const result = await createEmpresa(data);  
         return NextResponse.json({ sucesso: true, dados: result });
     } catch (erro) {
         console.error("Erro ao criar empresa:", erro);
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
     try {
-        const empresas = await getAllEmpresas();
+        const empresas = await getAllEmpresas();  
         return NextResponse.json({ sucesso: true, dados: empresas });
     } catch (erro) {
         console.error("Erro ao buscar empresas:", erro);
@@ -24,8 +24,15 @@ export async function GET() {
 
 export async function PUT(request: Request) {
     try {
-        const { id, ...dados } = await request.json();
-        const result = await updateEmpresa(id, dados);
+        const url = new URL(request.url);  
+        const id = url.searchParams.get("id");  
+        
+        if (!id || isNaN(Number(id))) {
+            return NextResponse.json({ sucesso: false, mensagem: "ID inválido ou não fornecido" }, { status: 400 });
+        }
+
+        const dados = await request.json(); 
+        const result = await updateEmpresa(Number(id), dados);
         return NextResponse.json({ sucesso: true, dados: result });
     } catch (erro) {
         console.error("Erro ao atualizar empresa:", erro);
@@ -33,13 +40,29 @@ export async function PUT(request: Request) {
     }
 }
 
+
 export async function DELETE(request: Request) {
     try {
-        const { id } = await request.json();
-        const result = await deleteEmpresa(id);
-        return NextResponse.json({ sucesso: true, dados: result });
+        const url = new URL(request.url);
+        const id = url.searchParams.get("id");
+
+        if (!id || isNaN(Number(id))) {
+            return NextResponse.json(
+                { sucesso: false, mensagem: "ID inválido ou não fornecido" },
+                { status: 400 }
+            );
+        }
+
+        const empresaId = Number(id);
+
+        await deleteEmpresa(empresaId);
+
+        return NextResponse.json({ sucesso: true, mensagem: "Empresa excluída com sucesso." });
     } catch (erro) {
         console.error("Erro ao excluir empresa:", erro);
-        return NextResponse.json({ sucesso: false, mensagem: "Falha ao excluir empresa" }, { status: 500 });
+        return NextResponse.json(
+            { sucesso: false, mensagem: "A empresa não pode ser excluída enquanto tiver licenças vinculadas." },
+            { status: 400 }
+        );
     }
 }

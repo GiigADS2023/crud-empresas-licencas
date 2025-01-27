@@ -9,11 +9,11 @@ import path from "path";
 const navLinks = [
     {
         path: "/",
-        name: "Início"
+        name: "Empresas"
     },
     {
-        path: "/empresas",
-        name: "Empresas"
+        path: "/licencas",
+        name: "Licenças"
     }
 ];
 
