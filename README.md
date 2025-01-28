@@ -83,25 +83,39 @@ npm install
 yarn install
 ```
 
-3. **Instale as dependências 2:**
-```bash
-npm install next@13.5.8
-
-npm install tailwindcss@3.4.17 postcss autoprefixer
-npx tailwindcss init -p
-
-npm install react-icons --save
-
-npm i daisyui
-```
-
-4. **Configure as variáveis de ambiente:**
+3. **Configure as variáveis de ambiente:**
 Altere o arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
 ```
-DATABASE_URL=mysql://USUARIO:SENHA@localhost:3306/NOME_BANCO  
+DATABASE_URL=mysql://root:root@localhost:3306/dbempresas  
 
 ```
+
+4. **Tabelas**
+
+```
+CREATE TABLE empresas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    razao_social VARCHAR(255) NOT NULL,
+    cnpj VARCHAR(18) NOT NULL,
+    cep VARCHAR(10),
+    cidade VARCHAR(100),
+    estado VARCHAR(50),
+    bairro VARCHAR(100),
+    complemento VARCHAR(255)
+);
+
+CREATE TABLE licencas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    empresa_id INT NOT NULL,
+    numero VARCHAR(50),
+    orgao_ambiental VARCHAR(255),
+    emissao DATE,
+    validade DATE,
+    FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
+);
+```
+
 
 5. **Execute as migrações no banco de dados:**
 
