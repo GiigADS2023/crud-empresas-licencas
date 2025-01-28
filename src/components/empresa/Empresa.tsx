@@ -124,6 +124,7 @@ const Empresa: React.FC<EmpresaProps> = ({ empresa }) => {
                             type="text"
                             placeholder="CNPJ"
                             maxLength={14}
+                            minLength={14}
                             required
                             inputMode="numeric"
                             pattern="\d*"
@@ -136,6 +137,7 @@ const Empresa: React.FC<EmpresaProps> = ({ empresa }) => {
                             type="text"
                             placeholder="CEP"
                             maxLength={8}
+                            minLength={8}
                             required
                             inputMode="numeric"
                             pattern="\d*"

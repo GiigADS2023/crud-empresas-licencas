@@ -13,6 +13,11 @@ export const createLicenca = async (data: {
     return result;
 };
 
+export const getAllLicencas = async () => {
+    const result = await db.select().from(licencas);
+    return result;
+};
+
 export const getAllLicencasByEmpresa = async (empresaId: number) => {
     const result = await db.select().from(licencas).where(eq(licencas.empresaId, empresaId));
     return result;

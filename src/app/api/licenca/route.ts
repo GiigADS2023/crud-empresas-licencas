@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createLicenca, getAllLicencasByEmpresa, updateLicenca, deleteLicenca } from "../../../services/licencaService";
+import { createLicenca, getAllLicencas, updateLicenca, deleteLicenca } from "../../../services/licencaService";
 
 export async function POST(request: Request) {
     try {
@@ -12,26 +12,27 @@ export async function POST(request: Request) {
     }
 }
 
-export async function GET(request: Request) {
+export async function GET() {
     try {
-        const url = new URL(request.url); 
-        const empresaId = url.searchParams.get('empresaId'); 
-        if (!empresaId) {
-            return NextResponse.json({ sucesso: false, mensagem: 'empresaId é obrigatório' }, { status: 400 });
-        }
-
-        const licencas = await getAllLicencasByEmpresa(Number(empresaId));
+        const licencas = await getAllLicencas();  
         return NextResponse.json({ sucesso: true, dados: licencas });
     } catch (erro) {
         console.error("Erro ao buscar licenças:", erro);
-        return NextResponse.json({ sucesso: false, mensagem: "Falha ao buscar licenças" }, { status: 500 });
+        return NextResponse.json({ sucesso: false, mensagem: "Falha ao buscar licencas" }, { status: 500 });
     }
 }
 
 export async function PUT(request: Request) {
     try {
-        const { id, ...dados } = await request.json();
-        const result = await updateLicenca(id, dados);
+        const url = new URL(request.url);  
+        const id = url.searchParams.get("id");  
+        
+        if (!id || isNaN(Number(id))) {
+            return NextResponse.json({ sucesso: false, mensagem: "ID inválido ou não fornecido" }, { status: 400 });
+        }
+
+        const dados = await request.json(); 
+        const result = await updateLicenca(Number(id), dados);
         return NextResponse.json({ sucesso: true, dados: result });
     } catch (erro) {
         console.error("Erro ao atualizar licença:", erro);
@@ -41,11 +42,22 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
     try {
-        const { id } = await request.json();
-        const result = await deleteLicenca(id);
-        return NextResponse.json({ sucesso: true, dados: result });
+        const url = new URL(request.url);
+        const id = url.searchParams.get("id");
+
+        if (!id || isNaN(Number(id))) {
+            return NextResponse.json(
+                { sucesso: false, mensagem: "ID inválido ou não fornecido" },
+                { status: 400 }
+            );
+        }
+
+        const licencaId = Number(id);
+
+        await deleteLicenca(licencaId);
+
+        return NextResponse.json({ sucesso: true, mensagem: "Empresa excluída com sucesso." });
     } catch (erro) {
         console.error("Erro ao excluir licença:", erro);
-        return NextResponse.json({ sucesso: false, mensagem: "Falha ao excluir licença" }, { status: 500 });
     }
 }

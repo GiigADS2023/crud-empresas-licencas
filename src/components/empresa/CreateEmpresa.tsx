@@ -90,6 +90,7 @@ const CreateEmpresa = () => {
                             type="text" 
                             placeholder="CNPJ"
                             maxLength={14}
+                            minLength={14}
                             required
                             inputMode="numeric"  
                             pattern="\d*" 
@@ -102,6 +103,7 @@ const CreateEmpresa = () => {
                             type="text"  
                             placeholder="CEP"
                             maxLength={8}
+                            minLength={8}
                             required
                             inputMode="numeric"  
                             pattern="\d*" 
