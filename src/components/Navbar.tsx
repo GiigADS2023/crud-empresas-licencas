@@ -4,17 +4,16 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
-import path from "path";
 
 const navLinks = [
     {
         path: "/",
-        name: "Empresas"
+        name: "Empresas",
     },
     {
         path: "/licencas",
-        name: "Licenças"
-    }
+        name: "Licenças",
+    },
 ];
 
 function Navbar() {
@@ -23,18 +22,18 @@ function Navbar() {
     const [hoverLink, setHoverLink] = useState(pathName);
 
     return (
-        <div className="mx-auto border w-[600px] border-blue-300/90 rounded-full mb-12 sticky top-2 z-[100] bg-gray-100/70 backdrop-blur-md">
-            <nav className="flex items-center justify-center gap-2 w-full z-[100] rounded-lg">
+        <div className="mx-auto w-full max-w-[600px] px-4 sm:px-6 lg:px-8 border border-blue-300/90 rounded-full mb-12 sticky top-2 z-[100] bg-gray-100/70 backdrop-blur-md">
+            <nav className="flex items-center justify-center gap-2 w-full rounded-lg">
                 {
-                    navLinks.map((item, index) => {
+                    navLinks.map((item) => {
                         const isActive = item.path === pathName;
 
                         return (
-                            <Link 
-                                key={item.path} 
-                                href={item.path} 
-                                className={`px-4 py-2 rounded-full text-sm lg:text-base relative no-underline duration-300 ease-in ${isActive ? "text-blue-500" : "text-blue-400" }`}
-                                
+                            <Link
+                                key={item.path}
+                                href={item.path}
+                                className={`px-4 py-2 rounded-full text-sm md:text-base relative no-underline duration-300 ease-in ${isActive ? "text-blue-500" : "text-blue-400"}`}
+                        
                                 onMouseOver={() => setHoverLink(item.path)}
 
                                 onMouseLeave={() => setHoverLink(pathName)}
@@ -43,11 +42,11 @@ function Navbar() {
                                 {
                                     item.path === hoverLink && (
                                         <motion.div
-                                            className="absolute bottom-0 left-0 h-full bg-blue-300/20 rounded-full -z-10" 
-                                            layoutId="navbar" 
+                                            className="absolute bottom-0 left-0 h-full bg-blue-300/20 rounded-full -z-10"
+                                            layoutId="navbar"
                                             aria-hidden="true"
                                             style={{
-                                                width: "100%"
+                                                width: "100%",
                                             }}
                                             transition={{
                                                 type: "spring",
@@ -57,7 +56,7 @@ function Navbar() {
                                                 duration: 0.8,
                                             }}
                                             >
-                                            
+
                                         </motion.div>
                                     )
                                 }
@@ -67,7 +66,7 @@ function Navbar() {
                 }
             </nav>
         </div>
-    )
+    );
 }
 
 export default Navbar;

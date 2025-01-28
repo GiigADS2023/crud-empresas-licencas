@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { IEmpresa } from "../../../types/empresas";
-import { FiEdit, FiTrash2, FiFileText } from "react-icons/fi";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 import ModalEmpresa from "./ModalEmpresa";
 import { useRouter } from "next/navigation";
 
