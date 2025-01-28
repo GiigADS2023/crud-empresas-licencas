@@ -1,36 +1,156 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CRUD de Empresas e Licenças Ambientais
 
-## Getting Started
+Este projeto implementa um CRUD simples para gerenciar empresas e suas licenças ambientais, desenvolvido como parte de um desafio técnico para o processo seletivo de Desenvolvedor Full Stack.
 
-First, run the development server:
+---
+
+## Tecnologias Utilizadas
+
+- **Framework Frontend**: Next.js 13+
+- **Linguagem**: TypeScript
+- **Banco de Dados**: MySQL
+- **ORM**: Drizzle ORM
+- **Gerenciamento de Estados e Formulários**: react-hook-form
+- **Estilização**: TailwindCSS
+
+---
+
+## Funcionalidades Implementadas
+
+### CRUD de Empresas e Licenças
+
+#### Empresa
+
+**Campos:**
+- Razão social
+- CNPJ
+- CEP
+- Cidade
+- Estado
+- Bairro
+- Complemento
+
+#### Licença Ambiental
+
+**Campos:**
+- Empresa vinculada (select)
+- Número da licença
+- Órgão ambiental
+- Data de emissão
+- Data de validade
+
+- Exibe os códigos das empresas vinculadas à linceças ambientais e permite adicionar novas.
+
+### Validações de Campos
+- **CEP**: Aceita no máximo 8 caracteres numéricos.
+- **CNPJ**: Aceita no máximo 14 caracteres numéricos.
+
+### Validações de Exclusão
+
+#### Exclusão de Empresa
+- Alerta caso existam licenças vinculadas à empresa, impedindo a exclusão.
+- Empresas sem licenças vinculadas podem ser excluídas normalmente.
+
+#### Exclusão de Licenças
+- Alerta informando que a exclusão desvinculará a licença da empresa correspondente.
+
+---
+
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado:
+
+- **Node.js** (versão LTS recomendada)
+- **MySQL**
+- **Yarn** ou **NPM**
+
+---
+
+## Instalação e Configuração
+
+1. **Clone o repositório:**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git https://github.com/GiigADS2023/crud-empresas-licencas.git
+cd crud-empresas-licencas
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Instale as dependências:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install 
+# ou  
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. **Instale as dependências 2:**
+```bash
+npm install next@13.5.8
 
-## Learn More
+npm install tailwindcss@3.4.17 postcss autoprefixer
+npx tailwindcss init -p
 
-To learn more about Next.js, take a look at the following resources:
+npm install react-icons --save
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm i daisyui
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. **Configure as variáveis de ambiente:**
+Altere o arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
-## Deploy on Vercel
+```
+DATABASE_URL=mysql://USUARIO:SENHA@localhost:3306/NOME_BANCO  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5. **Execute as migrações no banco de dados:**
+
+```bash
+npm i drizzle-orm mysql2 
+npm i -D drizzle-kit tsx
+```
+
+6. **Inicie o servidor de desenvolvimento:**
+
+```bash
+npm run dev  
+# ou  
+yarn dev
+```
+
+7. **Acesse a aplicação:**
+
+Abra o navegador em [http://localhost:3000](http://localhost:3000)
+
+---
+
+## Como Utilizar
+
+1. **Home || Cadastro de Empresa:**
+   - Visualize a lista de empresas cadastradas.
+   - Clique em "Cadastrar Nova Empresa" para adicionar uma nova.
+   - Preencha os campos
+
+2. **Cadastro de Licenças Ambientais:**
+   - Escolha a empresa correspondente.
+   - Preencha os dados e salve.
+
+---
+
+## Rotas de API
+
+- **GET** `http://localhost:3000/api/empresa`: Lista todas as empresas.
+- **POST** `http://localhost:3000/api/empresa`: Cria uma nova empresa.
+- **PUT** `http://localhost:3000/api/empresa?id={empresa.id}`: Atualiza uma empresa existente.
+- **DELETE** `http://localhost:3000/api/empresa?id={empresa.id}`: Remove uma empresa.
+
+- **GET** `http://localhost:3000/api/licenca`: Lista todas as licenças.
+- **POST** `http://localhost:3000/api/licenca`: Cria uma nova licença.
+- **PUT** `http://localhost:3000/api/licenca?id={licensas.id}`: Atualiza uma licença existente.
+- **DELETE** `http://localhost:3000/api/licenca?id={licenca.id}`: Remove uma licença.
+
+---
+
+## Contato
+
+Para dúvidas ou sugestões, envie um e-mail para **giorgiabschmidtADS@gmail.com**.
